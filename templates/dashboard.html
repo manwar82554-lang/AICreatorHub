@@ -1,0 +1,597 @@
+
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #171b2e;
+        }
+
+        .logo span {
+            color: #5b5bf7;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-link {
+            color: #4b5563;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .logout {
+            background: #ef4444;
+            color: white;
+            padding: 10px 17px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            background: #dc2626;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1200px;
+            margin: 45px auto 70px;
+            padding: 0 20px;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            background:
+                radial-gradient(circle at right top, rgba(255,255,255,0.15), transparent 30%),
+                linear-gradient(135deg, #171b2e, #303861);
+
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.10);
+        }
+
+        .welcome-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .welcome h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #d5d9e3;
+            font-size: 16px;
+        }
+
+        /* QUICK LINKS */
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 40px;
+        }
+
+        .quick-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            transition: 0.2s;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+        }
+
+        .quick-icon {
+            font-size: 27px;
+            margin-bottom: 10px;
+        }
+
+        .quick-card h3 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .quick-card p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* SECTION */
+
+        .section-heading {
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .section-heading p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* TOOLS */
+
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .tool {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 25px;
+            border-radius: 16px;
+            transition: 0.25s;
+        }
+
+        .tool:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            border-color: #d8d8ff;
+        }
+
+        .tool-icon {
+            width: 52px;
+            height: 52px;
+            background: #f0f0ff;
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+            margin-bottom: 17px;
+        }
+
+        .tool h3 {
+            font-size: 18px;
+            margin-bottom: 9px;
+        }
+
+        .tool p {
+            color: #687080;
+            font-size: 14px;
+            line-height: 1.5;
+            min-height: 42px;
+        }
+
+        .tool a {
+            display: inline-block;
+            margin-top: 17px;
+            background: #5b5bf7;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .tool a:hover {
+            background: #4747d8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 28px 20px;
+            text-align: center;
+            color: #8a93a3;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .tools {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+            .profile-link {
+                display: none;
+            }
+
+            .welcome {
+                padding: 30px 25px;
+            }
+
+            .welcome h1 {
+                font-size: 28px;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .tools {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        AI<span>CreatorHub</span>
+    </div>
+
+    <div class="header-right">
+
+        <a href="/profile" class="profile-link">
+            My Profile
+        </a>
+
+        <a href="/logout" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <div class="welcome-badge">
+            ✨ Creator Dashboard
+        </div>
+
+        <h1>
+            Welcome, {{ user_name }}!
+        </h1>
+
+        <p>
+            Create better content faster with AICreatorHub's AI tools.
+        </p>
+
+    </div>
+
+
+    <!-- QUICK LINKS -->
+
+    <div class="quick-links">
+
+        <a href="/history">
+
+            <div class="quick-card">
+
+                <div class="quick-icon">
+                    📚
+                </div>
+
+                <h3>
+                    My History
+                </h3>
+
+                <p>
+                    View and manage your previous AI creations.
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a href="/profile">
+
+            <div class="quick-card">
+
+                <div class="quick-icon">
+                    👤
+                </div>
+
+                <h3>
+                    My Profile
+                </h3>
+
+                <p>
+                    View your account information.
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a href="/ai-tools">
+
+            <div class="quick-card">
+
+                <div class="quick-icon">
+                    🧰
+                </div>
+
+                <h3>
+                    All AI Tools
+                </h3>
+
+                <p>
+                    Explore all available creator tools.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- TOOLS -->
+
+    <div class="section-heading">
+
+        <h2>
+            Your AI Creator Tools
+        </h2>
+
+        <p>
+            Select a tool below and start creating.
+        </p>
+
+    </div>
+
+
+    <div class="tools">
+
+
+        <!-- SCRIPT -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                ✍️
+            </div>
+
+            <h3>
+                AI Script Generator
+            </h3>
+
+            <p>
+                Create YouTube videos and Shorts scripts.
+            </p>
+
+            <a href="/script-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+        <!-- TITLES -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                🏷️
+            </div>
+
+            <h3>
+                YouTube Titles
+            </h3>
+
+            <p>
+                Generate catchy and clickable video titles.
+            </p>
+
+            <a href="/title-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                📝
+            </div>
+
+            <h3>
+                Description Generator
+            </h3>
+
+            <p>
+                Create SEO-friendly YouTube descriptions.
+            </p>
+
+            <a href="/description-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+        <!-- TAGS -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                🔖
+            </div>
+
+            <h3>
+                Tags Generator
+            </h3>
+
+            <p>
+                Find useful tags and keywords for videos.
+            </p>
+
+            <a href="/tags-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+        <!-- SHORTS -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                🎬
+            </div>
+
+            <h3>
+                Shorts Hook Generator
+            </h3>
+
+            <p>
+                Create powerful hooks for YouTube Shorts.
+            </p>
+
+            <a href="/shorts-hook-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+        <!-- THUMBNAIL -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                🖼️
+            </div>
+
+            <h3>
+                Thumbnail Text Generator
+            </h3>
+
+            <p>
+                Generate short and clickable thumbnail ideas.
+            </p>
+
+            <a href="/thumbnail-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+        <!-- BLOG -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                📰
+            </div>
+
+            <h3>
+                Blog Generator
+            </h3>
+
+            <p>
+                Create useful blog articles and content ideas.
+            </p>
+
+            <a href="/blog-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+        <!-- SOCIAL -->
+
+        <div class="tool">
+
+            <div class="tool-icon">
+                📱
+            </div>
+
+            <h3>
+                Social Caption Generator
+            </h3>
+
+            <p>
+                Create captions for social media platforms.
+            </p>
+
+            <a href="/social-caption-generator">
+                Open Tool →
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 AICreatorHub. All rights reserved.
+
+</footer>
+
+
+</body>
+
+</html>

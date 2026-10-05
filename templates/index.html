@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>AICreatorHub - AI Tools for Creators</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #171b2e;
+        }
+
+        .logo span {
+            color: #5b5bf7;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #404756;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #5b5bf7;
+        }
+
+        .nav-btn {
+            background: #5b5bf7;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .nav-btn:hover {
+            background: #4747d8;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            padding: 105px 20px 95px;
+            background:
+                radial-gradient(circle at top left, rgba(91,91,247,0.15), transparent 35%),
+                radial-gradient(circle at top right, rgba(91,91,247,0.10), transparent 30%),
+                linear-gradient(135deg, #f0f1ff, #ffffff);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #ececff;
+            color: #4d4ddc;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.08;
+            letter-spacing: -1.5px;
+        }
+
+        .hero h1 span {
+            color: #5b5bf7;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 25px auto;
+            color: #626b7a;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .primary-btn {
+            background: #5b5bf7;
+            color: white;
+            border: none;
+            padding: 15px 28px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .primary-btn:hover {
+            background: #4747d8;
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #172033;
+            border: 1px solid #d9dce5;
+            padding: 15px 28px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .secondary-btn:hover {
+            border-color: #5b5bf7;
+            color: #5b5bf7;
+        }
+
+        /* QUICK FEATURES */
+
+        .features {
+            max-width: 1100px;
+            margin: -35px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-box {
+            background: white;
+            border: 1px solid #e7e9ef;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.07);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            overflow: hidden;
+        }
+
+        .feature-item {
+            padding: 25px;
+            text-align: center;
+            border-right: 1px solid #edf0f4;
+        }
+
+        .feature-item:last-child {
+            border-right: none;
+        }
+
+        .feature-item h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .feature-item p {
+            color: #697386;
+            font-size: 14px;
+        }
+
+        /* TOOLS */
+
+        .tools {
+            padding: 95px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 45px;
+        }
+
+        .section-title .small-title {
+            color: #5b5bf7;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #687080;
+            font-size: 16px;
+        }
+
+        .tool-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .tool-card-link {
+            display: block;
+            height: 100%;
+            color: inherit;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            height: 100%;
+            transition: 0.25s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.09);
+            border-color: #d9d9ff;
+        }
+
+        .icon {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0ff;
+            border-radius: 14px;
+            font-size: 28px;
+            margin-bottom: 18px;
+        }
+
+        .tool-card h3 {
+            margin-bottom: 10px;
+            font-size: 19px;
+        }
+
+        .tool-card p {
+            color: #687080;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .card-arrow {
+            margin-top: 18px;
+            display: inline-block;
+            color: #5b5bf7;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* CTA */
+
+        .cta {
+            max-width: 1200px;
+            margin: 10px auto 80px;
+            padding: 70px 25px;
+            text-align: center;
+            background:
+                radial-gradient(circle at top right, rgba(255,255,255,0.15), transparent 25%),
+                linear-gradient(135deg, #171b2e, #252b48);
+            color: white;
+            border-radius: 20px;
+        }
+
+        .cta h2 {
+            font-size: 40px;
+            margin-bottom: 14px;
+        }
+
+        .cta p {
+            color: #cbd0dc;
+            max-width: 620px;
+            margin: 0 auto 28px;
+        }
+
+        .cta button {
+            background: white;
+            color: #171b2e;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 9px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .cta button:hover {
+            background: #f0f0f0;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 35px 7%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #5b5bf7;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #687080;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #5b5bf7;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #8a93a3;
+            font-size: 13px;
+            margin-top: 25px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .tool-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 75px 20px 80px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .feature-box {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-item {
+                border-right: none;
+                border-bottom: 1px solid #edf0f4;
+            }
+
+            .feature-item:last-child {
+                border-bottom: none;
+            }
+
+            .tools {
+                padding: 75px 20px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                margin: 10px 20px 60px;
+            }
+
+            .cta h2 {
+                font-size: 31px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        AI<span>CreatorHub</span>
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/ai-tools">AI Tools</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/login" class="nav-btn">Login</a>
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="hero-badge">
+        ✨ AI Tools Built for Content Creators
+    </div>
+
+    <h1>
+        Create Better Content
+        <span>With AI</span>
+    </h1>
+
+    <p>
+        Powerful AI tools for YouTube creators, bloggers,
+        social media creators and digital entrepreneurs.
+        Create faster, save time and turn your ideas into content.
+    </p>
+
+    <div class="hero-buttons">
+
+        <button
+            class="primary-btn"
+            onclick="document.getElementById('tools').scrollIntoView()">
+            Start Creating Free
+        </button>
+
+        <a href="/ai-tools">
+            <button class="secondary-btn">
+                Explore AI Tools
+            </button>
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="features">
+
+    <div class="feature-box">
+
+        <div class="feature-item">
+            <h3>⚡ Fast & Simple</h3>
+            <p>Create content without complicated tools.</p>
+        </div>
+
+        <div class="feature-item">
+            <h3>🌍 Urdu + English</h3>
+            <p>Designed for creators in different languages.</p>
+        </div>
+
+        <div class="feature-item">
+            <h3>🧰 8 Creator Tools</h3>
+            <p>Scripts, titles, blogs, captions and more.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="tools" id="tools">
+
+    <div class="section-title">
+
+        <div class="small-title">
+            AI CREATOR TOOLS
+        </div>
+
+        <h2>
+            Everything You Need to Create
+        </h2>
+
+        <p>
+            Choose a tool and start creating your content in just a few clicks.
+        </p>
+
+    </div>
+
+
+    <div class="tool-grid">
+
+
+        <!-- SCRIPT -->
+
+        <div class="tool-card">
+            <a href="/script-generator" class="tool-card-link">
+
+                <div class="icon">✍️</div>
+
+                <h3>AI Script Generator</h3>
+
+                <p>
+                    Create engaging YouTube scripts in Urdu and English.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+        <!-- TITLES -->
+
+        <div class="tool-card">
+            <a href="/title-generator" class="tool-card-link">
+
+                <div class="icon">🏷️</div>
+
+                <h3>YouTube Title Generator</h3>
+
+                <p>
+                    Generate catchy and clickable YouTube titles.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="tool-card">
+            <a href="/description-generator" class="tool-card-link">
+
+                <div class="icon">📝</div>
+
+                <h3>Description Generator</h3>
+
+                <p>
+                    Create SEO-friendly YouTube descriptions quickly.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+        <!-- TAGS -->
+
+        <div class="tool-card">
+            <a href="/tags-generator" class="tool-card-link">
+
+                <div class="icon">🔖</div>
+
+                <h3>YouTube Tags Generator</h3>
+
+                <p>
+                    Generate useful tags for your YouTube content.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+        <!-- SHORTS -->
+
+        <div class="tool-card">
+            <a href="/shorts-hook-generator" class="tool-card-link">
+
+                <div class="icon">🎬</div>
+
+                <h3>Shorts Hook Generator</h3>
+
+                <p>
+                    Create powerful hooks for YouTube Shorts.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+        <!-- THUMBNAIL -->
+
+        <div class="tool-card">
+            <a href="/thumbnail-generator" class="tool-card-link">
+
+                <div class="icon">🖼️</div>
+
+                <h3>Thumbnail Ideas</h3>
+
+                <p>
+                    Generate creative thumbnail text and ideas.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+        <!-- BLOG -->
+
+        <div class="tool-card">
+            <a href="/blog-generator" class="tool-card-link">
+
+                <div class="icon">📰</div>
+
+                <h3>Blog Generator</h3>
+
+                <p>
+                    Create useful and engaging blog content with AI.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+        <!-- SOCIAL -->
+
+        <div class="tool-card">
+            <a href="/social-caption-generator" class="tool-card-link">
+
+                <div class="icon">📱</div>
+
+                <h3>Social Media Caption</h3>
+
+                <p>
+                    Generate captions for Facebook, Instagram and TikTok.
+                </p>
+
+                <span class="card-arrow">Open Tool →</span>
+
+            </a>
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<section class="cta">
+
+    <h2>
+        Ready to Create Something Amazing?
+    </h2>
+
+    <p>
+        Start using AICreatorHub tools and turn your ideas
+        into content faster and easier.
+    </p>
+
+    <button
+        onclick="document.getElementById('tools').scrollIntoView()">
+        Start Creating
+    </button>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-content">
+
+        <div class="footer-logo">
+            AI<span>CreatorHub</span>
+        </div>
+
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/contact">Contact</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 AICreatorHub. All rights reserved.
+    </div>
+
+</footer>
+
+</body>
+</html>

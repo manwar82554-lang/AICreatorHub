@@ -1,0 +1,436 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>History - AICreatorHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: rgba(255,255,255,0.97);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #171b2e;
+        }
+
+        .logo span {
+            color: #5b5bf7;
+        }
+
+        .back {
+            color: #5b5bf7;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #4747d8;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1000px;
+            margin: 45px auto 70px;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background:
+                radial-gradient(circle at right top, rgba(255,255,255,0.14), transparent 30%),
+                linear-gradient(135deg, #171b2e, #303861);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #d5d9e3;
+            font-size: 14px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.04);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 13px 14px;
+            border: 1px solid #d8dce5;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #5b5bf7;
+            box-shadow: 0 0 0 3px rgba(91,91,247,0.10);
+        }
+
+        .search-btn {
+            border: none;
+            background: #5b5bf7;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 9px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background: #4747d8;
+        }
+
+        /* HISTORY */
+
+        .history-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            padding: 25px;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.04);
+        }
+
+        .tool-name {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #172033;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            margin-bottom: 17px;
+            color: #687080;
+            font-size: 13px;
+        }
+
+        .meta strong {
+            color: #404756;
+        }
+
+        .content-box {
+            background: #f8f9ff;
+            border: 1px solid #e9eaff;
+            border-radius: 12px;
+            padding: 18px;
+            color: #404756;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .delete-btn {
+            border: none;
+            background: #ef4444;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 45px 25px;
+            text-align: center;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.04);
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .empty h2 {
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #687080;
+            font-size: 14px;
+        }
+
+        .empty-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #5b5bf7;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .empty-btn:hover {
+            background: #4747d8;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+            .container {
+                margin-top: 30px;
+            }
+
+            .page-header {
+                padding: 28px 22px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .history-item {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        AI<span>CreatorHub</span>
+    </div>
+
+    <a href="/dashboard" class="back">
+        ← Dashboard
+    </a>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="page-header">
+
+        <div class="badge">
+            📚 Your Saved Creations
+        </div>
+
+        <h1>
+            History
+        </h1>
+
+        <p>
+            View, search and manage your previous AI creations.
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <form method="GET" action="/history" class="search-form">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                class="search-input"
+                placeholder="Search by topic or tool..."
+            >
+
+            <button type="submit" class="search-btn">
+                🔍 Search
+            </button>
+
+        </form>
+
+    </div>
+
+
+    {% if records %}
+
+
+        {% for item in records %}
+
+
+            <div class="history-item">
+
+                <div class="tool-name">
+                    {{ item["tool_name"] }}
+                </div>
+
+
+                <div class="meta">
+
+                    <span>
+                        <strong>Topic:</strong>
+                        {{ item["topic"] }}
+                    </span>
+
+                    <span>
+                        <strong>Created:</strong>
+                        {{ item["created_at"] }}
+                    </span>
+
+                </div>
+
+
+                <div class="content-box">
+                    {{ item["content"] }}
+                </div>
+
+
+                <div class="actions">
+
+                    <form
+                        action="/delete-history/{{ item['id'] }}"
+                        method="POST"
+                        onsubmit="return confirm('کیا آپ واقعی یہ History delete کرنا چاہتے ہیں؟');"
+                    >
+
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <button type="submit" class="delete-btn">
+                            🗑️ Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                📭
+            </div>
+
+            <h2>
+                No History Yet
+            </h2>
+
+            <p>
+                Your AI creations will appear here after you generate them.
+            </p>
+
+            <a href="/ai-tools" class="empty-btn">
+                Explore AI Tools
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>
+```

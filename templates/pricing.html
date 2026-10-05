@@ -1,0 +1,759 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Pricing - AICreatorHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: rgba(255,255,255,0.97);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #171b2e;
+        }
+
+        .logo span {
+            color: #5b5bf7;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #404756;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #5b5bf7;
+        }
+
+        .login-btn {
+            background: #5b5bf7;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            padding: 75px 20px 60px;
+            background:
+                radial-gradient(circle at top left, rgba(91,91,247,0.14), transparent 35%),
+                linear-gradient(135deg, #f0f1ff, #ffffff);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ececff;
+            color: #4d4ddc;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 span {
+            color: #5b5bf7;
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: auto;
+            color: #687080;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* PRICING */
+
+        .pricing-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 75px 20px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            align-items: stretch;
+        }
+
+        .plan {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 35px 28px;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.05);
+            position: relative;
+            transition: 0.25s;
+        }
+
+        .plan:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.09);
+        }
+
+        .plan.featured {
+            border: 2px solid #5b5bf7;
+            box-shadow: 0 12px 35px rgba(91,91,247,0.14);
+        }
+
+        .popular {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #5b5bf7;
+            color: white;
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .plan-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .plan h2 {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .plan-description {
+            color: #687080;
+            font-size: 14px;
+            min-height: 42px;
+        }
+
+        .price-area {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .price {
+            font-size: 46px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .currency {
+            font-size: 22px;
+            vertical-align: top;
+            position: relative;
+            top: 6px;
+        }
+
+        .period {
+            color: #7b8494;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .features {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .features li {
+            padding: 11px 0;
+            border-bottom: 1px solid #edf0f4;
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            color: #16a34a;
+            font-weight: bold;
+            margin-right: 7px;
+        }
+
+        .plan-btn {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            border-radius: 9px;
+            text-align: center;
+            background: #5b5bf7;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .plan-btn:hover {
+            background: #4747d8;
+        }
+
+        .featured .plan-btn {
+            background: #171b2e;
+        }
+
+        .featured .plan-btn:hover {
+            background: #252b48;
+        }
+
+        .coming {
+            background: #eef0f4 !important;
+            color: #596273 !important;
+            cursor: default;
+        }
+
+        /* NOTE */
+
+        .note {
+            text-align: center;
+            max-width: 700px;
+            margin: -30px auto 70px;
+            padding: 0 20px;
+            color: #7b8494;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* FAQ */
+
+        .faq {
+            max-width: 900px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        .faq-item h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            color: #687080;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* CTA */
+
+        .cta {
+            max-width: 1200px;
+            margin: 0 auto 75px;
+            padding: 60px 25px;
+            text-align: center;
+            background: linear-gradient(135deg, #171b2e, #303861);
+            color: white;
+            border-radius: 20px;
+        }
+
+        .cta h2 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #cbd0dc;
+            margin-bottom: 24px;
+        }
+
+        .cta a {
+            display: inline-block;
+            background: white;
+            color: #171b2e;
+            padding: 13px 25px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 30px 20px;
+            text-align: center;
+            color: #8a93a3;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: auto;
+            }
+
+            .plan.featured {
+                order: -1;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 20px 50px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .pricing-section {
+                padding: 60px 20px;
+            }
+
+            .cta {
+                margin: 0 20px 60px;
+            }
+
+            .cta h2 {
+                font-size: 29px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        AI<span>CreatorHub</span>
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/ai-tools">
+            AI Tools
+        </a>
+
+        <a href="/pricing">
+            Pricing
+        </a>
+
+        <a href="/about">
+            About
+        </a>
+
+        <a href="/contact">
+            Contact
+        </a>
+
+        <a href="/login" class="login-btn">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="badge">
+        💎 Simple & Flexible Pricing
+    </div>
+
+    <h1>
+        Choose the Plan That
+        <span>Fits You</span>
+    </h1>
+
+    <p>
+        Start free and upgrade later when you need more powerful
+        AI content creation tools.
+    </p>
+
+</section>
+
+
+<section class="pricing-section">
+
+
+    <div class="pricing-grid">
+
+
+        <!-- FREE -->
+
+        <div class="plan">
+
+            <div class="plan-header">
+
+                <h2>
+                    Free
+                </h2>
+
+                <p class="plan-description">
+                    Perfect for getting started with AICreatorHub.
+                </p>
+
+            </div>
+
+            <div class="price-area">
+
+                <div class="price">
+                    <span class="currency">$</span>0
+                </div>
+
+                <div class="period">
+                    Forever
+                </div>
+
+            </div>
+
+            <ul class="features">
+
+                <li>
+                    <span class="check">✓</span>
+                    Basic AI Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Limited Generations
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    YouTube Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Shorts Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    No Credit Card Required
+                </li>
+
+            </ul>
+
+            <a href="/ai-tools" class="plan-btn">
+                Get Started
+            </a>
+
+        </div>
+
+
+        <!-- CREATOR -->
+
+        <div class="plan featured">
+
+            <div class="popular">
+                MOST POPULAR
+            </div>
+
+            <div class="plan-header">
+
+                <h2>
+                    Creator
+                </h2>
+
+                <p class="plan-description">
+                    For creators who need more tools and generations.
+                </p>
+
+            </div>
+
+            <div class="price-area">
+
+                <div class="price">
+                    <span class="currency">$</span>9
+                </div>
+
+                <div class="period">
+                    per month
+                </div>
+
+            </div>
+
+            <ul class="features">
+
+                <li>
+                    <span class="check">✓</span>
+                    More AI Generations
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    YouTube Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Shorts Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Content History
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Faster Generation
+                </li>
+
+            </ul>
+
+            <a href="#" class="plan-btn coming">
+                Coming Soon
+            </a>
+
+        </div>
+
+
+        <!-- PRO -->
+
+        <div class="plan">
+
+            <div class="plan-header">
+
+                <h2>
+                    Pro
+                </h2>
+
+                <p class="plan-description">
+                    For serious creators and digital businesses.
+                </p>
+
+            </div>
+
+            <div class="price-area">
+
+                <div class="price">
+                    <span class="currency">$</span>19
+                </div>
+
+                <div class="period">
+                    per month
+                </div>
+
+            </div>
+
+            <ul class="features">
+
+                <li>
+                    <span class="check">✓</span>
+                    Advanced AI Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Unlimited Generations*
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    YouTube + Shorts Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Blog & Social Tools
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    Priority Features
+                </li>
+
+            </ul>
+
+            <a href="#" class="plan-btn coming">
+                Coming Soon
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<div class="note">
+
+    * Plans, generation limits and features may change when the
+    real payment system is launched.
+
+</div>
+
+
+<section class="faq">
+
+    <h2 class="faq-title">
+        Frequently Asked Questions
+    </h2>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Can I use AICreatorHub for free?
+        </h3>
+
+        <p>
+            Yes. The Free plan is designed to let you start using
+            the available creator tools without a subscription.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Can I upgrade later?
+        </h3>
+
+        <p>
+            Yes. Paid plans will be available when the payment
+            system is connected.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Are paid plans available right now?
+        </h3>
+
+        <p>
+            Not yet. The Creator and Pro plans are currently
+            marked as Coming Soon.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<section class="cta">
+
+    <h2>
+        Start Creating for Free
+    </h2>
+
+    <p>
+        Explore AICreatorHub tools and turn your ideas into content.
+    </p>
+
+    <a href="/ai-tools">
+        Explore AI Tools
+    </a>
+
+</section>
+
+
+<footer>
+
+    © 2026 AICreatorHub. All rights reserved.
+
+</footer>
+
+
+</body>
+
+</html>
+```

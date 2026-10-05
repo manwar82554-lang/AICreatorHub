@@ -1,0 +1,589 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Contact - AICreatorHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: rgba(255,255,255,0.97);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #171b2e;
+        }
+
+        .logo span {
+            color: #5b5bf7;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #404756;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #5b5bf7;
+        }
+
+        .login-btn {
+            background: #5b5bf7;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            padding: 75px 20px 60px;
+            background:
+                radial-gradient(circle at top left, rgba(91,91,247,0.14), transparent 35%),
+                linear-gradient(135deg, #f0f1ff, #ffffff);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ececff;
+            color: #4d4ddc;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 span {
+            color: #5b5bf7;
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: auto;
+            color: #687080;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* CONTACT AREA */
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 75px 20px;
+            display: grid;
+            grid-template-columns: 0.9fr 1.3fr;
+            gap: 25px;
+        }
+
+        .info,
+        .form-box {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.04);
+        }
+
+        .info h2,
+        .form-box h2 {
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+
+        .info > p {
+            color: #687080;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .contact-item {
+            background: #f8f9ff;
+            border: 1px solid #e9eaff;
+            border-radius: 13px;
+            padding: 17px;
+            margin-bottom: 14px;
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-item span {
+            color: #687080;
+            font-size: 14px;
+        }
+
+        .tip-box {
+            margin-top: 22px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #eef0ff;
+            color: #4d4ddc;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FORM */
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d8dce5;
+            border-radius: 9px;
+            margin-bottom: 18px;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #5b5bf7;
+            box-shadow: 0 0 0 3px rgba(91,91,247,0.10);
+        }
+
+        textarea {
+            min-height: 170px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #5b5bf7;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #4747d8;
+            transform: translateY(-1px);
+        }
+
+        .notice {
+            display: none;
+            margin-top: 15px;
+            padding: 13px;
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+            border-radius: 9px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* CTA */
+
+        .cta {
+            max-width: 1100px;
+            margin: 0 auto 75px;
+            padding: 55px 25px;
+            text-align: center;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #171b2e, #303861);
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .cta p {
+            color: #cbd0dc;
+            margin-bottom: 23px;
+        }
+
+        .cta a {
+            display: inline-block;
+            background: white;
+            color: #171b2e;
+            padding: 13px 24px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            padding: 30px 20px;
+            color: #8a93a3;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 20px 50px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                padding: 60px 20px;
+            }
+
+            .info,
+            .form-box {
+                padding: 28px 22px;
+            }
+
+            .cta {
+                margin: 0 20px 60px;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        AI<span>CreatorHub</span>
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/ai-tools">
+            AI Tools
+        </a>
+
+        <a href="/pricing">
+            Pricing
+        </a>
+
+        <a href="/about">
+            About
+        </a>
+
+        <a href="/contact">
+            Contact
+        </a>
+
+        <a href="/login" class="login-btn">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="badge">
+        📩 We'd Love to Hear From You
+    </div>
+
+    <h1>
+        Contact <span>AICreatorHub</span>
+    </h1>
+
+    <p>
+        Have a question, suggestion or idea for a new AI tool?
+        Send us a message.
+    </p>
+
+</section>
+
+
+<div class="contact-container">
+
+
+    <!-- CONTACT INFO -->
+
+    <div class="info">
+
+        <h2>
+            Get in Touch
+        </h2>
+
+        <p>
+            We welcome questions, feedback and suggestions
+            about AICreatorHub and its creator tools.
+        </p>
+
+
+        <div class="contact-item">
+
+            <strong>
+                📧 Email
+            </strong>
+
+            <span>
+                support@aicreatorhub.com
+            </span>
+
+        </div>
+
+
+        <div class="contact-item">
+
+            <strong>
+                🌐 Website
+            </strong>
+
+            <span>
+                AICreatorHub
+            </span>
+
+        </div>
+
+
+        <div class="contact-item">
+
+            <strong>
+                💡 Suggestions
+            </strong>
+
+            <span>
+                Have an idea for a new AI creator tool?
+                Let us know.
+            </span>
+
+        </div>
+
+
+        <div class="tip-box">
+
+            💬 Tell us what you need and what kind of
+            creator tools would make your work easier.
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTACT FORM -->
+
+    <div class="form-box">
+
+        <h2>
+            Send a Message
+        </h2>
+
+
+        <form onsubmit="sendMessage(event)">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <label for="name">
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your name"
+                required
+            >
+
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Your email"
+                required
+            >
+
+
+            <label for="message">
+                Message
+            </label>
+
+            <textarea
+                id="message"
+                name="message"
+                placeholder="Write your message..."
+                required
+            ></textarea>
+
+
+            <button type="submit">
+                Send Message
+            </button>
+
+
+            <div class="notice" id="notice">
+                Thank you! Your message form has been submitted.
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+</div>
+
+
+<section class="cta">
+
+    <h2>
+        Want to Explore the Tools?
+    </h2>
+
+    <p>
+        Check out the AICreatorHub AI tools and start creating.
+    </p>
+
+    <a href="/ai-tools">
+        Explore AI Tools
+    </a>
+
+</section>
+
+
+<footer>
+
+    © 2026 AICreatorHub. All rights reserved.
+
+</footer>
+
+
+<script>
+
+async function sendMessage(event) {
+
+    event.preventDefault();
+
+    const form = event.target;
+
+    const formData = new FormData(form);
+
+    try {
+
+        const response = await fetch("/contact", {
+            method: "POST",
+            body: formData
+        });
+
+        if (response.ok) {
+
+            document.getElementById("notice").style.display = "block";
+
+            form.reset();
+
+        } else {
+
+            alert("Message submit نہیں ہو سکا۔");
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Message submit نہیں ہو سکا۔");
+    }
+}
+</script>
+
+
+</body>
+
+</html>
+```

@@ -1,0 +1,657 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YouTube Title Generator - AICreatorHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: rgba(255,255,255,0.97);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #171b2e;
+        }
+
+        .logo span {
+            color: #5b5bf7;
+        }
+
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-links a {
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .header-links a:hover {
+            color: #5b5bf7;
+        }
+
+        .dashboard-btn {
+            background: #5b5bf7;
+            color: white !important;
+            padding: 10px 17px;
+            border-radius: 8px;
+        }
+
+        /* PAGE */
+
+        .page {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 65px 20px 80px;
+        }
+
+        .title-area {
+            text-align: center;
+            margin-bottom: 38px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ececff;
+            color: #4d4ddc;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 17px;
+        }
+
+        .title-area h1 {
+            font-size: 46px;
+            margin-bottom: 12px;
+        }
+
+        .title-area h1 span {
+            color: #5b5bf7;
+        }
+
+        .title-area p {
+            max-width: 680px;
+            margin: auto;
+            color: #687080;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* GENERATOR */
+
+        .generator {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+        }
+
+        .section-label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 22px;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d8dce5;
+            border-radius: 9px;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #5b5bf7;
+            box-shadow: 0 0 0 3px rgba(91,91,247,0.10);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #5b5bf7;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .generate-btn:hover {
+            background: #4747d8;
+            transform: translateY(-1px);
+        }
+
+        /* RESULT */
+
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            background: #f8f9ff;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result-header h2 {
+            font-size: 22px;
+        }
+
+        .status {
+            background: #ececff;
+            color: #4d4ddc;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .result textarea {
+            min-height: 300px;
+            background: white;
+            line-height: 1.7;
+            resize: vertical;
+        }
+
+        .result-actions {
+            margin-top: 12px;
+        }
+
+        .copy-btn {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #172033;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .copy-btn:hover {
+            background: #30384c;
+        }
+
+        .note {
+            margin-top: 15px;
+            color: #687080;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* INFO */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .info-card {
+            background: #f8f9ff;
+            border: 1px solid #e9eaff;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .info-card .icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .info-card h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .info-card p {
+            color: #687080;
+            font-size: 12px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .header-links a:first-child {
+                display: none;
+            }
+
+            .page {
+                padding: 50px 20px 65px;
+            }
+
+            .title-area h1 {
+                font-size: 35px;
+            }
+
+            .generator {
+                padding: 25px 20px;
+            }
+
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        AI<span>CreatorHub</span>
+    </div>
+
+    <div class="header-links">
+
+        <a href="/ai-tools">
+            AI Tools
+        </a>
+
+        <a href="/dashboard" class="dashboard-btn">
+            Dashboard
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="page">
+
+
+    <div class="title-area">
+
+        <div class="badge">
+            🏷️ YouTube Growth Tool
+        </div>
+
+        <h1>
+            YouTube <span>Title Generator</span>
+        </h1>
+
+        <p>
+            Create catchy, clickable and engaging YouTube titles
+            for your videos in seconds.
+        </p>
+
+    </div>
+
+
+    <div class="generator">
+
+
+        <div class="section-label">
+            Create Your Titles
+        </div>
+
+
+        <div class="field">
+
+            <label for="topic">
+                Video Topic
+            </label>
+
+            <input
+                type="text"
+                id="topic"
+                placeholder="Enter your video topic"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="language">
+                Language / زبان
+            </label>
+
+            <select id="language">
+
+                <option value="English">
+                    English
+                </option>
+
+                <option value="Urdu">
+                    اردو
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="generate-btn"
+            onclick="generateTitles()"
+        >
+            ✨ Generate YouTube Titles
+        </button>
+
+
+        <div class="result">
+
+
+            <div class="result-header">
+
+                <h2>
+                    Generated Titles
+                </h2>
+
+                <div class="status">
+    🟡 DEMO MODE — AI Connection Pending
+</div>
+
+            </div>
+
+
+            <textarea
+                id="result"
+                readonly
+                placeholder="Your generated titles will appear here..."
+            ></textarea>
+
+
+            <div class="result-actions">
+
+                <button
+                    class="copy-btn"
+                    onclick="copyTitles()"
+                >
+                    📋 Copy Titles
+                </button>
+
+            </div>
+
+
+            <div class="note">
+    ✨ Your titles have been generated successfully.
+    یہ فی الحال Demo Mode ہے۔ حقیقی AI connection کے بعد آپ کے Topic اور Language کے مطابق بہترین YouTube titles خودکار طور پر تیار ہوں گے۔
+</div>
+
+
+        </div>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Clickable Titles
+                </h3>
+
+                <p>
+                    Better ideas for your videos.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    🌍
+                </div>
+
+                <h3>
+                    Urdu + English
+                </h3>
+
+                <p>
+                    Create titles in both languages.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    📚
+                </div>
+
+                <h3>
+                    Auto History
+                </h3>
+
+                <p>
+                    Generated titles are saved automatically.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+async function generateTitles() {
+
+    const topic =
+        document.getElementById("topic").value;
+
+    const language =
+        document.getElementById("language").value;
+
+
+    if (!topic.trim()) {
+
+        alert("Please enter a video topic.");
+
+        return;
+    }
+
+
+    const demoTitles =
+
+        "Demo Titles\n\n" +
+
+        "1. " + topic + " — What You Need to Know\n" +
+
+        "2. The Truth About " + topic + "\n" +
+
+        "3. " + topic + " Explained Simply\n" +
+
+        "4. 5 Things You Should Know About " + topic + "\n" +
+
+        "5. The Secret Behind " + topic + "\n\n" +
+
+        "Language: " + language +
+
+        "\n\nThis is currently a demo. Real AI generation will be connected later.";
+
+
+    document.getElementById("result").value =
+        demoTitles;
+
+
+    try {
+
+        const response = await fetch(
+            "/save-history",
+            {
+                method: "POST",
+
+headers: {
+    "Content-Type": "application/json",
+    "X-CSRFToken": "{{ csrf_token() }}"
+},
+
+                body: JSON.stringify({
+
+                    tool_name:
+                        "YouTube Title Generator",
+
+                    topic:
+                        topic,
+
+                    content:
+                        demoTitles
+
+                })
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            alert(
+                "Titles generated and saved to History!"
+            );
+
+        } else {
+
+            alert(
+                "Titles generated, but History save نہیں ہو سکی۔"
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Titles generated, but History save نہیں ہو سکی۔"
+        );
+
+    }
+
+}
+
+
+function copyTitles() {
+
+    const result =
+        document.getElementById("result");
+
+
+    if (!result.value.trim()) {
+
+        alert("پہلے Titles generate کریں۔");
+
+        return;
+    }
+
+
+    navigator.clipboard
+        .writeText(result.value)
+        .then(function() {
+
+            alert("Titles copied successfully!");
+
+        })
+        .catch(function() {
+
+            alert("Titles copy نہیں ہو سکیں۔");
+
+        });
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
+```

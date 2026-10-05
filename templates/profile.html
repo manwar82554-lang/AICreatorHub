@@ -1,0 +1,345 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>My Profile - AICreatorHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top right, rgba(91,91,247,0.12), transparent 30%),
+                linear-gradient(135deg, #f0f1ff, #f7f9fc);
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: rgba(255,255,255,0.97);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #171b2e;
+        }
+
+        .logo span {
+            color: #5b5bf7;
+        }
+
+        .back {
+            color: #5b5bf7;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #4747d8;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            max-width: 700px;
+            margin: 55px auto 70px;
+            padding: 0 20px;
+        }
+
+        .profile-box {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 38px;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.07);
+        }
+
+        .badge {
+            display: table;
+            margin: 0 auto 16px;
+            background: #ececff;
+            color: #4d4ddc;
+            padding: 7px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profile-icon {
+            width: 78px;
+            height: 78px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #f0f0ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 31px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #687080;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* INFO */
+
+        .info {
+            margin-top: 10px;
+        }
+
+        .item {
+            background: #f8f9ff;
+            border: 1px solid #e9eaff;
+            border-radius: 13px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #7b8494;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
+
+        .value {
+            font-size: 17px;
+            font-weight: bold;
+            color: #172033;
+            word-break: break-word;
+        }
+
+        /* BUTTONS */
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .dashboard-btn,
+        .logout-btn {
+            flex: 1;
+            text-align: center;
+            padding: 13px 18px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .dashboard-btn {
+            background: #5b5bf7;
+            color: white;
+        }
+
+        .dashboard-btn:hover {
+            background: #4747d8;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        .security-note {
+            margin-top: 22px;
+            padding: 13px 15px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            text-align: center;
+            color: #687080;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+            .container {
+                margin-top: 35px;
+            }
+
+            .profile-box {
+                padding: 28px 22px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        AI<span>CreatorHub</span>
+    </div>
+
+    <a href="/dashboard" class="back">
+        ← Dashboard
+    </a>
+
+</header>
+
+
+<div class="container">
+
+    <div class="profile-box">
+
+        <div class="badge">
+            👤 My Account
+        </div>
+
+        <div class="profile-icon">
+            👤
+        </div>
+
+        <h1>
+            My Profile
+        </h1>
+
+        <p class="subtitle">
+            View your AICreatorHub account information.
+        </p>
+
+
+        <div class="info">
+
+
+            <div class="item">
+
+                <div class="label">
+                    Full Name
+                </div>
+
+                <div class="value">
+                    {{ user_name }}
+                </div>
+
+            </div>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Email Address
+                </div>
+
+                <div class="value">
+                    {{ user_email }}
+                </div>
+
+            </div>
+
+
+        </div>
+
+<a href="/change-password"
+   style="
+       display:block;
+       width:100%;
+       text-align:center;
+       padding:13px 18px;
+       margin-top:20px;
+       border-radius:9px;
+       background:#172033;
+       color:white;
+       font-size:14px;
+       font-weight:bold;
+       text-decoration:none;
+   ">
+    🔒 Change Password
+</a>
+
+
+<div class="actions">
+
+    <a href="/dashboard" class="dashboard-btn">
+        🏠 Dashboard
+    </a>
+
+    <a href="/history" class="dashboard-btn">
+        📜 My History
+    </a>
+
+    <a href="/logout" class="logout-btn">
+        🚪 Logout
+    </a>
+
+</div>
+
+
+        <div class="security-note">
+            🔒 Your account information is shown only after you log in.
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
+```

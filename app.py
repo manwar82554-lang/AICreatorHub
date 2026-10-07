@@ -261,7 +261,7 @@ def admin():
     # Users
     users = conn.execute(
         """
-        SELECT id, name, email
+        SELECT id, name, email, plan
         FROM users
         ORDER BY id DESC
         """
@@ -402,6 +402,43 @@ def admin_delete_user(user_id):
 
     return redirect("/admin")
 
+@app.route("/admin/update-plan/<int:user_id>", methods=["POST"])
+def admin_update_plan(user_id):
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    conn = sqlite3.connect("users.db")
+    conn.row_factory = sqlite3.Row
+
+    admin = conn.execute(
+        "SELECT is_admin FROM users WHERE id = ?",
+        (session["user_id"],)
+    ).fetchone()
+
+    if admin is None or admin["is_admin"] != 1:
+        conn.close()
+        return "Access denied. Admin access required.", 403
+
+    plan = request.form.get("plan", "Free")
+
+    allowed_plans = ["Free", "Creator", "Pro"]
+
+    if plan not in allowed_plans:
+        conn.close()
+        return "Invalid plan selected.", 400
+
+    conn.execute(
+        "UPDATE users SET plan = ? WHERE id = ?",
+        (plan, user_id)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/admin")
+
+
 @app.route("/admin/delete-history/<int:history_id>", methods=["POST"])
 def admin_delete_history(history_id):
 
@@ -462,6 +499,43 @@ def save_history_route():
         return {
             "success": False,
             "message": "No data received."
+        }
+
+    conn = sqlite3.connect("users.db")
+    conn.row_factory = sqlite3.Row
+
+    user = conn.execute(
+        "SELECT plan FROM users WHERE id = ?",
+        (session["user_id"],)
+    ).fetchone()
+
+    user_plan = user["plan"] if user else "Free"
+
+    today_count = conn.execute(
+        """
+        SELECT COUNT(*)
+        FROM history
+        WHERE user_id = ?
+        AND date(created_at) = date('now')
+        """,
+        (session["user_id"],)
+    ).fetchone()[0]
+
+    conn.close()
+
+    if user_plan == "Free":
+        daily_limit = 5
+    elif user_plan == "Creator":
+        daily_limit = 50
+    elif user_plan == "Pro":
+        daily_limit = 200
+    else:
+        daily_limit = 5
+
+    if today_count >= daily_limit:
+        return {
+            "success": False,
+            "message": f"Daily limit reached. Your {user_plan} plan allows {daily_limit} generations per day."
         }
 
     tool_name = data.get("tool_name", "")

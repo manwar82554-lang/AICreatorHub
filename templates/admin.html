@@ -368,6 +368,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Plan</th>
                         <th>Action</th>
                     </tr>
 
@@ -389,6 +390,22 @@
 
                         <td>
                             {{ user["email"] }}
+                        </td>
+
+                        <td>
+                            <form action="/admin/update-plan/{{ user["id"] }}" method="POST" style="display:flex; gap:6px; align-items:center;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                <select name="plan" style="padding:7px; border:1px solid #d1d5db; border-radius:6px;">
+                                    <option value="Free" {% if user["plan"] == "Free" %}selected{% endif %}>Free</option>
+                                    <option value="Creator" {% if user["plan"] == "Creator" %}selected{% endif %}>Creator</option>
+                                    <option value="Pro" {% if user["plan"] == "Pro" %}selected{% endif %}>Pro</option>
+                                </select>
+
+                                <button type="submit" style="background:#2563eb; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-weight:bold;">
+                                    Update
+                                </button>
+                            </form>
                         </td>
 <td>
 

@@ -309,6 +309,32 @@
     </div>
 
 
+    <!-- PLAN & DAILY USAGE -->
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; margin-bottom:40px;">
+
+        <div style="background:white; border:1px solid #e5e7eb; padding:22px; border-radius:14px;">
+            <div style="font-size:13px; color:#6b7280; margin-bottom:8px;">Current Plan</div>
+            <div style="font-size:25px; font-weight:800; color:#5b5bf7;">
+                {{ user_plan }}
+            </div>
+        </div>
+
+        <div style="background:white; border:1px solid #e5e7eb; padding:22px; border-radius:14px;">
+            <div style="font-size:13px; color:#6b7280; margin-bottom:8px;">Today's Usage</div>
+            <div style="font-size:25px; font-weight:800; color:#171b2e;">
+                {{ today_count }} / {{ daily_limit }}
+            </div>
+        </div>
+
+        <div style="background:white; border:1px solid #e5e7eb; padding:22px; border-radius:14px;">
+            <div style="font-size:13px; color:#6b7280; margin-bottom:8px;">Remaining Today</div>
+            <div style="font-size:25px; font-weight:800; color:#16a34a;">
+                {{ remaining }}
+            </div>
+        </div>
+
+    </div>
+
     <!-- QUICK LINKS -->
 
     <div class="quick-links">

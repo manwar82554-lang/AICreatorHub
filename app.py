@@ -231,10 +231,51 @@ def dashboard():
     if "user_id" not in session:
         return redirect("/login")
 
+    conn = sqlite3.connect("users.db")
+    conn.row_factory = sqlite3.Row
+
+    user = conn.execute(
+        "SELECT name, email, plan FROM users WHERE id = ?",
+        (session["user_id"],)
+    ).fetchone()
+
+    if user is None:
+        conn.close()
+        return redirect("/login")
+
+    today_count = conn.execute(
+        """
+        SELECT COUNT(*)
+        FROM history
+        WHERE user_id = ?
+        AND date(created_at) = date('now')
+        """,
+        (session["user_id"],)
+    ).fetchone()[0]
+
+    conn.close()
+
+    user_plan = user["plan"] or "Free"
+
+    if user_plan == "Free":
+        daily_limit = 5
+    elif user_plan == "Creator":
+        daily_limit = 50
+    elif user_plan == "Pro":
+        daily_limit = 200
+    else:
+        daily_limit = 5
+
+    remaining = max(daily_limit - today_count, 0)
+
     return render_template(
         "dashboard.html",
-        user_name=session["user_name"],
-        user_email=session["user_email"]
+        user_name=user["name"],
+        user_email=user["email"],
+        user_plan=user_plan,
+        today_count=today_count,
+        daily_limit=daily_limit,
+        remaining=remaining
     )
 
 @app.route("/admin")
